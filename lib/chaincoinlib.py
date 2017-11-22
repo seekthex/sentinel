@@ -11,6 +11,8 @@ import binascii
 from misc import printdbg, epoch2str
 import time
 
+MAX_GOVERNANCE_OBJECT_DATA_SIZE = 16 * 1024
+
 
 def is_valid_chaincoin_address(address, network='mainnet'):
     # Only public key addresses are allowed
@@ -105,7 +107,15 @@ def create_superblock(proposals, event_block_height, budget_max, sb_epoch_time, 
     budget_allocated = Decimal(0)
     fudge = SUPERBLOCK_FUDGE_WINDOW  # fudge-factor to allow for slighly incorrect estimates
 
-    payments_list = []
+    payments = []
+
+    sb_empty = Superblock(
+        event_block_height=event_block_height,
+        payment_addresses='',
+        payment_amounts='',
+        proposal_hashes='',
+    )
+    data_length = len(sb_empty.chaincoind_serialise())
 
     for proposal in proposals:
         fmt_string = "name: %s, rank: %4d, hash: %s, amount: %s <= %s"
@@ -153,31 +163,19 @@ def create_superblock(proposals, event_block_height, budget_max, sb_epoch_time, 
             )
         )
 
-        payment = {
-            'address': proposal.payment_address,
-            'amount': "{0:.8f}".format(proposal.payment_amount),
-            'proposal': "{}".format(proposal.object_hash)
-        }
+        payment = {'address': proposal.payment_address,
+                   'amount': "{0:.8f}".format(proposal.payment_amount),
+                   'proposal': "{}".format(proposal.object_hash)}
 
-        temp_payments_list = copy.deepcopy(payments_list)
-        temp_payments_list.append(payment)
+        data_length += 2 * (len(payment['address']) + len(payment['amount']) + len(payment['proposal']) + 3)
 
-        # calculate size of proposed Superblock
-        sb_temp = Superblock(
-            event_block_height=event_block_height,
-            payment_addresses='|'.join([pd['address'] for pd in temp_payments_list]),
-            payment_amounts='|'.join([pd['amount'] for pd in temp_payments_list]),
-            proposal_hashes='|'.join([pd['proposal'] for pd in temp_payments_list])
-        )
-        proposed_sb_size = len(sb_temp.serialise())
-
-        if proposed_sb_size > maxgovobjdatasize:
+        if data_length > MAX_GOVERNANCE_OBJECT_DATA_SIZE:
             printdbg("MAX_GOVERNANCE_OBJECT_DATA_SIZE limit reached!")
             break
 
-        # add proposal and keep track of total budget allocation
+        # else add proposal and keep track of total budget allocation
         budget_allocated += proposal.payment_amount
-        payments_list.append(payment)
+        payments.append(payment)
 
     # don't create an empty superblock
     if not payments_list:
