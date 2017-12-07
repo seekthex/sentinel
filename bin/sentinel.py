@@ -75,7 +75,8 @@ def attempt_superblock_creation(chaincoind):
     sb_epoch_time = chaincoind.block_height_to_epoch(event_block_height)
 
     maxgovobjdatasize = chaincoind.govinfo['maxgovobjdatasize']
-    sb = chaincoinlib.create_superblock(proposals, event_block_height, budget_max, sb_epoch_time, maxgovobjdatasize)
+    testnet = chaincoind.is_testnet()
+    sb = chaincoinlib.create_superblock(proposals, event_block_height, budget_max, sb_epoch_time, maxgovobjdatasize, testnet)
     if not sb:
         printdbg("No superblock created, sorry. Returning.")
         return

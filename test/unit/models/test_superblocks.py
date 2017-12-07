@@ -223,7 +223,8 @@ def test_deterministic_superblock_creation(go_list_proposals):
 
     # MAX_GOVERNANCE_OBJECT_DATA_SIZE defined in governance-object.h
     maxgovobjdatasize = 16 * 1024
-    sb = chaincoinlib.create_superblock(prop_list, 72000, max_budget, misc.now(), maxgovobjdatasize)
+    testnet = True
+    sb = chaincoinlib.create_superblock(prop_list, 72000, max_budget, misc.now(), maxgovobjdatasize, testnet)
 
     assert sb.event_block_height == 72000
     assert sb.payment_addresses == 'ZHJV7jhBWgaB1uxazbVsnQU5HUDAqX14Bz|ZH6bt95skGVco2t3gRuHggcSUrtRZ5BUsr'
