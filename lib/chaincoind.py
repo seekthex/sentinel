@@ -38,6 +38,8 @@ class ChaincoinDaemon():
 
         creds[u'host'] = config.rpc_host
 
+        creds[u'host'] = config.rpc_host
+
         return self(**creds)
 
     def rpc_command(self, *params):
