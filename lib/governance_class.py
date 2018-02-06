@@ -65,6 +65,10 @@ class GovernanceClass(object):
 
         return binascii.hexlify(simplejson.dumps(self.get_dict(), sort_keys=True).encode('utf-8')).decode('utf-8')
 
+    def chaincoind_serialise(self):
+        import chaincoinlib
+        return chaincoinlib.SHIM_serialise_for_chaincoind(self.serialise())
+
     @classmethod
     def serialisable_fields(self):
         # Python is so not very elegant...

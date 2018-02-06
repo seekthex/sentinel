@@ -199,6 +199,39 @@ def create_superblock(proposals, event_block_height, budget_max, sb_epoch_time, 
     return sb
 
 
+# shims 'til we can fix the JSON format
+def SHIM_serialise_for_chaincoind(sentinel_hex):
+    from models import GOVOBJ_TYPE_STRINGS
+
+    # unpack
+    obj = deserialise(sentinel_hex)
+
+    # shim for chaincoind
+    govtype_string = GOVOBJ_TYPE_STRINGS[obj['type']]
+
+    # superblock => "trigger" in chaincoind
+    if govtype_string == 'superblock':
+        govtype_string = 'trigger'
+
+    # chaincoind expects an array (will be deprecated)
+    obj = [(govtype_string, obj,)]
+
+    # re-pack
+    chaincoind_hex = serialise(obj)
+    return chaincoind_hex
+
+
+# shims 'til we can fix the JSON format
+def SHIM_deserialise_from_chaincoind(chaincoind_hex):
+    # unpack
+    obj = deserialise(chaincoind_hex)
+
+    # re-pack, extracting the single element (JSON object)
+    sentinel_hex = serialise(obj[0][1])
+
+    return sentinel_hex
+
+
 # convenience
 def deserialise(hexdata):
     json = binascii.unhexlify(hexdata)

@@ -104,8 +104,6 @@ class GovernanceObject(BaseModel):
     def import_gobject_from_chaincoind(self, chaincoind, rec):
         import decimal
         import chaincoinlib
-        import binascii
-        import gobject_json
 
         object_hash = rec['Hash']
 
@@ -118,10 +116,13 @@ class GovernanceObject(BaseModel):
             'no_count': rec['NoCount'],
         }
 
-        # deserialise and extract object
-        json_str = binascii.unhexlify(rec['DataHex']).decode('utf-8')
-        dikt = gobject_json.extract_object(json_str)
-
+        # shim/chaincoind conversion
+        # eventually we'll remove the shim method entirely
+        dikt = chaincoinlib.deserialise(
+            chaincoinlib.SHIM_deserialise_from_chaincoind(
+                rec['DataHex']
+            )
+        )
         subobj = None
 
         type_class_map = {
