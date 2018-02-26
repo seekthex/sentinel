@@ -216,17 +216,6 @@ def SHIM_serialise_for_chaincoind(sentinel_hex):
     return chaincoind_hex
 
 
-# shims 'til we can fix the JSON format
-def SHIM_deserialise_from_chaincoind(chaincoind_hex):
-    # unpack
-    obj = deserialise(chaincoind_hex)
-
-    # re-pack, extracting the single element (JSON object)
-    sentinel_hex = serialise(obj[0][1])
-
-    return sentinel_hex
-
-
 # convenience
 def deserialise(hexdata):
     json = binascii.unhexlify(hexdata)
