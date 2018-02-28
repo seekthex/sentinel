@@ -247,6 +247,43 @@ def test_deterministic_superblock_creation(go_list_proposals):
     assert sb.hex_hash() == 'bb3f33ccf95415c396bd09d35325dbcbc7b067010d51c7ccf772a9e839c1e414'
 
 
+def test_superblock_size_limit(go_list_proposals):
+    import chaincoinlib
+    import misc
+    from chaincoind import ChaincoinDaemon
+    chaincoind = ChaincoinDaemon.from_chaincoin_conf(config.chaincoin_conf)
+    for item in go_list_proposals:
+        (go, subobj) = GovernanceObject.import_gobject_from_chaincoind(chaincoind, item)
+
+    max_budget = 60
+    prop_list = Proposal.approved_and_ranked(proposal_quorum=1, next_superblock_max_budget=max_budget)
+
+    # mock maxgovobjdatasize by setting equal to the size of a trigger
+    # (serialized) if only the first proposal had been included... anything
+    # larger should break the limit
+    single_proposal_sb = Superblock(
+        event_block_height=72000,
+        payment_addresses=prop_list[0].payment_address,
+        payment_amounts="{0:.8f}".format(prop_list[0].payment_amount),
+        proposal_hashes=prop_list[0].object_hash,
+    )
+    maxgovobjdatasize = len(single_proposal_sb.serialise())
+
+    # now try and create a Superblock with the entire proposal list
+    sb = chaincoinlib.create_superblock(prop_list, 72000, max_budget, misc.now(), maxgovobjdatasize)
+
+    # two proposals in the list, but...
+    assert len(prop_list) == 2
+
+    # only one should have been included in the SB, because the 2nd one is over the size limit
+    assert sb.event_block_height == 72000
+    assert sb.payment_addresses == 'ZHJV7jhBWgaB1uxazbVsnQU5HUDAqX14Bz|ZH6bt95skGVco2t3gRuHggcSUrtRZ5BUsr'
+    assert sb.payment_amounts == '315.75000000|21.05000000'
+    assert sb.proposal_hashes == '7fa2798fee8ea74c3a369db72ae872096bd4e4714f1f5027c730ccfbf58aac02|d1ce73527d7cd6f2218f8ca893990bc7d5c6b9334791ce7973bfa22f155f826e'
+
+    assert sb.hex_hash() == 'bb3f33ccf95415c396bd09d35325dbcbc7b067010d51c7ccf772a9e839c1e414'
+
+
 def test_deterministic_superblock_selection(go_list_superblocks):
     from chaincoind import ChaincoinDaemon
     chaincoind = ChaincoinDaemon.from_chaincoin_conf(config.chaincoin_conf)

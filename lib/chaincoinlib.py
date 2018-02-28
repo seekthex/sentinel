@@ -105,7 +105,7 @@ def create_superblock(proposals, event_block_height, budget_max, sb_epoch_time, 
     budget_allocated = Decimal(0)
     fudge = SUPERBLOCK_FUDGE_WINDOW  # fudge-factor to allow for slighly incorrect estimates
 
-    payments = []
+    payments_list = []
 
     for proposal in proposals:
         fmt_string = "name: %s, rank: %4d, hash: %s, amount: %s <= %s"
@@ -153,26 +153,31 @@ def create_superblock(proposals, event_block_height, budget_max, sb_epoch_time, 
             )
         )
 
-        payment = {'address': proposal.payment_address,
-                   'amount': "{0:.8f}".format(proposal.payment_amount),
-                   'proposal': "{}".format(proposal.object_hash)}
+        payment = {
+            'address': proposal.payment_address,
+            'amount': "{0:.8f}".format(proposal.payment_amount),
+            'proposal': "{}".format(proposal.object_hash)
+        }
 
-        # calculate current sb data size
+        temp_payments_list = copy.deepcopy(payments_list)
+        temp_payments_list.append(payment)
+
+        # calculate size of proposed Superblock
         sb_temp = Superblock(
             event_block_height=event_block_height,
-            payment_addresses='|'.join([pd['address'] for pd in payments]),
-            payment_amounts='|'.join([pd['amount'] for pd in payments]),
-            proposal_hashes='|'.join([pd['proposal'] for pd in payments])
+            payment_addresses='|'.join([pd['address'] for pd in temp_payments_list]),
+            payment_amounts='|'.join([pd['amount'] for pd in temp_payments_list]),
+            proposal_hashes='|'.join([pd['proposal'] for pd in temp_payments_list])
         )
-        data_size = len(sb_temp.dashd_serialise())
+        proposed_sb_size = len(sb_temp.serialise())
 
-        if data_size > maxgovobjdatasize:
+        if proposed_sb_size > maxgovobjdatasize:
             printdbg("MAX_GOVERNANCE_OBJECT_DATA_SIZE limit reached!")
             break
 
-        # else add proposal and keep track of total budget allocation
+        # add proposal and keep track of total budget allocation
         budget_allocated += proposal.payment_amount
-        payments.append(payment)
+        payments_list.append(payment)
 
     # don't create an empty superblock
     if not payments_list:
@@ -192,28 +197,6 @@ def create_superblock(proposals, event_block_height, budget_max, sb_epoch_time, 
     printdbg("generated superblock: %s" % sb.__dict__)
 
     return sb
-
-
-# shims 'til we can fix the JSON format
-def SHIM_serialise_for_chaincoind(sentinel_hex):
-    from models import GOVOBJ_TYPE_STRINGS
-
-    # unpack
-    obj = deserialise(sentinel_hex)
-
-    # shim for chaincoind
-    govtype_string = GOVOBJ_TYPE_STRINGS[obj['type']]
-
-    # superblock => "trigger" in chaincoind
-    if govtype_string == 'superblock':
-        govtype_string = 'trigger'
-
-    # chaincoind expects an array (will be deprecated)
-    obj = [(govtype_string, obj,)]
-
-    # re-pack
-    chaincoind_hex = serialise(obj)
-    return chaincoind_hex
 
 
 # convenience
