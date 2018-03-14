@@ -29,10 +29,10 @@ def go_list_proposals():
     items = [
         {u'AbsoluteYesCount': 1000,
          u'AbstainCount': 7,
-         u'CollateralHash': u'acb67ec3f3566c9b94a26b70b36c1f74a010a37c0950c22d683cc50da324fdca',
-         u'DataHex': u'5b5b2270726f706f73616c222c207b22656e645f65706f6368223a20323132323532303430302c20226e616d65223a20226465616e2d6d696c6c65722d35343933222c20227061796d656e745f61646472657373223a2022795965384b77796155753559737753596d4233713372797838585455753979375569222c20227061796d656e745f616d6f756e74223a2032352e37352c202273746172745f65706f6368223a20313437343236313038362c202274797065223a20312c202275726c223a2022687474703a2f2f6461736863656e7472616c2e6f72672f6465616e2d6d696c6c65722d35343933227d5d5d',
-         u'DataString': u'[["proposal", {"end_epoch": 2122520400, "name": "dean-miller-5493", "payment_address": "yYe8KwyaUu5YswSYmB3q3ryx8XTUu9y7Ui", "payment_amount": 25.75, "start_epoch": 1474261086, "type": 1, "url": "http://chaincoincentral.org/dean-miller-5493"}]]',
-         u'Hash': u'dfd7d63979c0b62456b63d5fc5306dbec451180adee85876cbf5b28c69d1a86c',
+         u'CollateralHash': u'744bb5190b9416a755517e727fbc2605ce5537c3f6e132195f09bac4bd2d691f',
+         u'DataHex': u'5b5b2270726f706f73616c222c7b22656e645f65706f6368223a313531313936353931362c226e616d65223a2267756e732d6e2d726f736573222c227061796d656e745f61646472657373223a225a484a56376a684257676142317578617a6256736e5155354855444171583134427a222c227061796d656e745f616d6f756e74223a3331352e37352c2273746172745f65706f6368223a313531313936323335312c2274797065223a312c2275726c223a22687474703a2f2f636861696e636f696e2e6f72672f70726f706f73616c2f3635343332227d5d5d',
+         u'DataString': u'[["proposal", {"end_epoch": 2122520400, "name": "guns-n-roses", "payment_address": "ZHJV7jhBWgaB1uxazbVsnQU5HUDAqX14Bz", "payment_amount": 315.75, "start_epoch": 1511962351, "type": 1, "url": "http://chaincoin.org/proposal/65432"}]]',
+         u'Hash': u'7fa2798fee8ea74c3a369db72ae872096bd4e4714f1f5027c730ccfbf58aac02',
          u'IsValidReason': u'',
          u'NoCount': 25,
          u'YesCount': 1025,
@@ -43,10 +43,10 @@ def go_list_proposals():
          u'fCachedValid': True},
         {u'AbsoluteYesCount': 1000,
          u'AbstainCount': 29,
-         u'CollateralHash': u'3efd23283aa98c2c33f80e4d9ed6f277d195b72547b6491f43280380f6aac810',
-         u'DataHex': u'5b5b2270726f706f73616c222c207b22656e645f65706f6368223a20323132323532303430302c20226e616d65223a20226665726e616e64657a2d37363235222c20227061796d656e745f61646472657373223a2022795443363268755234595145506e39414a486a6e517878726548536267416f617456222c20227061796d656e745f616d6f756e74223a2033322e30312c202273746172745f65706f6368223a20313437343236313038362c202274797065223a20312c202275726c223a2022687474703a2f2f6461736863656e7472616c2e6f72672f6665726e616e64657a2d37363235227d5d5d',
-         u'DataString': u'[["proposal", {"end_epoch": 2122520400, "name": "fernandez-7625", "payment_address": "yTC62huR4YQEPn9AJHjnQxxreHSbgAoatV", "payment_amount": 32.01, "start_epoch": 1474261086, "type": 1, "url": "http://chaincoincentral.org/fernandez-7625"}]]',
-         u'Hash': u'0523445762025b2e01a2cd34f1d10f4816cf26ee1796167e5b029901e5873630',
+         u'CollateralHash': u'3170ed7b3a0ede65fb9ffb3068d299d6bb786a5a6527351692a44aba1f3e67b7',
+         u'DataHex': u'5b5b2270726f706f73616c222c7b22656e645f65706f6368223a313531313936383432332c226e616d65223a227069737461636368696f2d37363235222c227061796d656e745f61646472657373223a225a483662743935736b4756636f3274336752754867676353557274525a3542557372222c227061796d656e745f616d6f756e74223a32312e39352c2273746172745f65706f6368223a313531313936343835382c2274797065223a312c2275726c223a22687474703a2f2f636861696e636f696e2e6f72672f70726f706f73616c2f3636343333227d5d5d',
+         u'DataString': u'[["proposal", {"end_epoch": 2122520400, "name": "pistacchio-7625", "payment_address": "ZH6bt95skGVco2t3gRuHggcSUrtRZ5BUsr", "payment_amount": 21.95, "start_epoch": 1474261086, "type": 1, "url": "http://chaincoin.org/proposal/66433"}]]',
+         u'Hash': u'd1ce73527d7cd6f2218f8ca893990bc7d5c6b9334791ce7973bfa22f155f826e',
          u'IsValidReason': u'',
          u'NoCount': 56,
          u'YesCount': 1056,
@@ -115,9 +115,9 @@ def go_list_superblocks():
 def superblock():
     sb = Superblock(
         event_block_height=62500,
-        payment_addresses='yYe8KwyaUu5YswSYmB3q3ryx8XTUu9y7Ui|yTC62huR4YQEPn9AJHjnQxxreHSbgAoatV',
+        payment_addresses='ZHJV7jhBWgaB1uxazbVsnQU5HUDAqX14Bz|ZH6bt95skGVco2t3gRuHggcSUrtRZ5BUsr',
         payment_amounts='5|3',
-        proposal_hashes='e8a0057914a2e1964ae8a945c4723491caae2077a90a00a2aabee22b40081a87|d1ce73527d7cd6f2218f8ca893990bc7d5c6b9334791ce7973bfa22f155f826e',
+        proposal_hashes='7fa2798fee8ea74c3a369db72ae872096bd4e4714f1f5027c730ccfbf58aac02|d1ce73527d7cd6f2218f8ca893990bc7d5c6b9334791ce7973bfa22f155f826e',
     )
     return sb
 
@@ -143,25 +143,25 @@ def test_superblock_is_valid(superblock):
     assert superblock.is_valid() is True
 
     # mess with payment addresses
-    superblock.payment_addresses = 'yTC62huR4YQEPn9AJHjnQxxreHSbgAoatV|1234 Anywhere ST, Chicago, USA'
+    superblock.payment_addresses = 'ZHJV7jhBWgaB1uxazbVsnQU5HUDAqX14Bz|1234 Anywhere ST, Chicago, USA'
     assert superblock.is_valid() is False
 
     # single payment addr/amt is ok
-    superblock.payment_addresses = 'yTC62huR4YQEPn9AJHjnQxxreHSbgAoatV'
+    superblock.payment_addresses = 'ZHJV7jhBWgaB1uxazbVsnQU5HUDAqX14Bz'
     superblock.payment_amounts = '5.00'
     assert superblock.is_valid() is True
 
     # ensure number of payment addresses matches number of payments
-    superblock.payment_addresses = 'yTC62huR4YQEPn9AJHjnQxxreHSbgAoatV'
+    superblock.payment_addresses = 'ZHJV7jhBWgaB1uxazbVsnQU5HUDAqX14Bz'
     superblock.payment_amounts = '37.00|23.24'
     assert superblock.is_valid() is False
 
-    superblock.payment_addresses = 'yYe8KwyaUu5YswSYmB3q3ryx8XTUu9y7Ui|yTC62huR4YQEPn9AJHjnQxxreHSbgAoatV'
+    superblock.payment_addresses = 'ZHJV7jhBWgaB1uxazbVsnQU5HUDAqX14Bz|ZH6bt95skGVco2t3gRuHggcSUrtRZ5BUsr'
     superblock.payment_amounts = '37.00'
     assert superblock.is_valid() is False
 
     # ensure amounts greater than zero
-    superblock.payment_addresses = 'yTC62huR4YQEPn9AJHjnQxxreHSbgAoatV'
+    superblock.payment_addresses = 'ZHJV7jhBWgaB1uxazbVsnQU5HUDAqX14Bz'
     superblock.payment_amounts = '-37.00'
     assert superblock.is_valid() is False
 
@@ -218,14 +218,14 @@ def test_deterministic_superblock_creation(go_list_proposals):
     for item in go_list_proposals:
         (go, subobj) = GovernanceObject.import_gobject_from_chaincoind(chaincoind, item)
 
-    max_budget = 60
+    max_budget = 384
     prop_list = Proposal.approved_and_ranked(proposal_quorum=1, next_superblock_max_budget=max_budget)
     sb = chaincoinlib.create_superblock(prop_list, 72000, budget_max=max_budget, sb_epoch_time=misc.now())
 
     assert sb.event_block_height == 72000
-    assert sb.payment_addresses == 'yYe8KwyaUu5YswSYmB3q3ryx8XTUu9y7Ui|yTC62huR4YQEPn9AJHjnQxxreHSbgAoatV'
-    assert sb.payment_amounts == '25.75000000|32.01000000'
-    assert sb.proposal_hashes == 'dfd7d63979c0b62456b63d5fc5306dbec451180adee85876cbf5b28c69d1a86c|0523445762025b2e01a2cd34f1d10f4816cf26ee1796167e5b029901e5873630'
+    assert sb.payment_addresses == 'ZHJV7jhBWgaB1uxazbVsnQU5HUDAqX14Bz|ZH6bt95skGVco2t3gRuHggcSUrtRZ5BUsr'
+    assert sb.payment_amounts == '315.75000000|21.05000000'
+    assert sb.proposal_hashes == '7fa2798fee8ea74c3a369db72ae872096bd4e4714f1f5027c730ccfbf58aac02|d1ce73527d7cd6f2218f8ca893990bc7d5c6b9334791ce7973bfa22f155f826e'
 
     assert sb.hex_hash() == '5534e9fa4a51423820b9e19fa6d4770c12ea0a5663e8adff8223f5e8b6df641c'
 

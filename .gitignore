@@ -100,3 +100,7 @@ ignore/
 
 # SQLite databases
 database/*.db
+Sentinel.config
+Sentinel.creator
+Sentinel.files
+Sentinel.includes
