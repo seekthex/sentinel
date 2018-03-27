@@ -6,7 +6,7 @@ import init
 import config
 import misc
 from chaincoind import ChaincoinDaemon
-from models import Superblock, Proposal, GovernanceObject, Watchdog
+from models import Superblock, Proposal, GovernanceObject
 from models import VoteSignals, VoteOutcomes, Transient
 import socket
 from misc import printdbg
