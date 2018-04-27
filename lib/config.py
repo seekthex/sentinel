@@ -15,11 +15,14 @@ min_chaincoind_proto_version_with_sentinel_ping = 70015
 
 
 def get_chaincoin_conf():
-    home = os.environ.get('HOME')
+    if sys.platform == 'win32':
+        chaincoin_conf = os.path.join(os.getenv('APPDATA'), "Chaincoin/chaincoin.conf")
+    else:
+        home = os.environ.get('HOME')
 
-    chaincoin_conf = os.path.join(home, ".chaincoincore/chaincoin.conf")
-    if sys.platform == 'darwin':
-        chaincoin_conf = os.path.join(home, "Library/Application Support/ChaincoinCore/chaincoin.conf")
+        chaincoin_conf = os.path.join(home, ".chaincoincore/chaincoin.conf")
+        if sys.platform == 'darwin':
+            chaincoin_conf = os.path.join(home, "Library/Application Support/Chaincoin/chaincoin.conf")
 
     chaincoin_conf = sentinel_cfg.get('chaincoin_conf', chaincoin_conf)
 
