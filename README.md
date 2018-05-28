@@ -25,19 +25,19 @@ Update system packages and ensure virtualenv is installed:
 
 Make sure the local Chaincoin daemon running is at least version 0.16.x
 
-    $ chaincoin-cli getinfo | grep version
+    $ chaincoin-cli getwalletinfo | grep version
 
 ### 2. Install Sentinel
 
 Clone the Sentinel repo and install Python dependencies:
 
-    $ git pull
-    $ rm -rf venv && virtualenv ./venv && ./venv/bin/pip install -r requirements.txt
+    $ git clone https://github.com/chaincoin/sentinel.git && cd sentinel
+    $ virtualenv ./venv && ./venv/bin/pip install -r requirements.txt   
 
 When just upgrading, also remove the virtual environment:
-
-    $ git clone https://github.com/chaincoin/sentinel.git && cd sentinel
-    $ virtualenv ./venv && ./venv/bin/pip install -r requirements.txt
+    
+    $ git pull
+    $ rm -rf venv && virtualenv ./venv && ./venv/bin/pip install -r requirements.txt
 
 ### 3. Set up Cron
 
