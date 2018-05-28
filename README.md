@@ -4,11 +4,11 @@ An all-powerful toolset for Chaincoin.
 
 [![Build Status](https://travis-ci.org/chaincoin/sentinel.svg?branch=master)](https://travis-ci.org/chaincoin/sentinel)
 
-Sentinel is an autonomous agent for persisting, processing and automating Chaincoin V12.1 governance objects and tasks, and for expanded functions in the upcoming Chaincoin V13 release (Evolution).
+Sentinel is an autonomous agent for persisting, processing and automating Chaincoin V0.16 governance objects and tasks.
 
-Sentinel is implemented as a Python application that binds to a local version 12.1 chaincoind instance on each Chaincoin V12.1 Masternode.
+Sentinel is implemented as a Python application that binds to a local version 0.16.x chaincoind instance on each Chaincoin V0.16 Masternode.
 
-This guide covers installing Sentinel onto an existing 12.1 Masternode in Ubuntu 14.04 / 16.04.
+This guide covers installing Sentinel onto an existing 0.16.x Masternode in Ubuntu 14.04 / 16.04.
 
 ## Installation
 
