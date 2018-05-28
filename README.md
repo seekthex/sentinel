@@ -2,7 +2,7 @@
 
 An all-powerful toolset for Chaincoin.
 
-[![Build Status](https://travis-ci.org/ChainCoinUnlimited/sentinel.svg?branch=Chaincoin_dev)](https://travis-ci.org/ChainCoinUnlimited/sentinel)
+[![Build Status](https://travis-ci.org/chaincoin/sentinel.svg?branch=master)](https://travis-ci.org/chaincoin/sentinel)
 
 Sentinel is an autonomous agent for persisting, processing and automating Chaincoin V12.1 governance objects and tasks, and for expanded functions in the upcoming Chaincoin V13 release (Evolution).
 
@@ -23,17 +23,21 @@ Update system packages and ensure virtualenv is installed:
     $ sudo apt-get update
     $ sudo apt-get -y install python-virtualenv
 
-Make sure the local Chaincoin daemon running is at least version 12.1 (120100)
+Make sure the local Chaincoin daemon running is at least version 0.16.x
 
     $ chaincoin-cli getinfo | grep version
 
 ### 2. Install Sentinel
 
-Clone the Sentinel repo and install Python dependencies.
+Clone the Sentinel repo and install Python dependencies:
+
+    $ git pull
+    $ rm -rf venv && virtualenv ./venv && ./venv/bin/pip install -r requirements.txt
+
+When just upgrading, also remove the virtual environment:
 
     $ git clone https://github.com/chaincoin/sentinel.git && cd sentinel
-    $ virtualenv ./venv
-    $ ./venv/bin/pip install -r requirements.txt
+    $ virtualenv ./venv && ./venv/bin/pip install -r requirements.txt
 
 ### 3. Set up Cron
 
